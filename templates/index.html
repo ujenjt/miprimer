@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Mi-Primer</title>
+        {% assets "css_all" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" />
+        {% endassets %}
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">MiPrimer</div>
+            <form method="post" action="{{ url_for('primers') }}">
+              <input class="mirna-input" type="text" name="mirna" placeholder="MiRNA sequence" />
+              <input class="design-primers" type="submit" value="Design" />
+            </form>
+            <div class="example">
+              Enter micro RNA sequence, e.g. <span class="polymer-sequence">UGAGGUAGUAGGUUGUAUAGUU</span>
+            </div>
+        </div>
+    </body>
+</html>

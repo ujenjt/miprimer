@@ -1,0 +1,18 @@
+#!/bin/bash
+set -e
+
+p() {
+  printf >&2 '\n==> %s\n' "$*"
+}
+
+p 'Initializing venv...'
+python3 -m venv venv
+
+p 'Activating venv...'
+source venv/bin/activate
+
+p 'Installing dependencies...'
+pip3 install -r requirements.txt
+
+p 'Starting server...'
+exec env PYTHONIOENCODING=utf-8 python3 server.py

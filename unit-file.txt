@@ -1,0 +1,20 @@
+[Unit]
+Description=miprimer
+After=docker.service
+BindsTo=docker.service
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/docker stop -t 15 miprimer
+ExecStartPre=-/usr/bin/docker rm miprimer
+ExecStart=/usr/bin/docker run --name miprimer -p 80:4242 ujenjt/miprimer:latest
+# stop miprimer
+ExecStop=-/usr/bin/docker stop -t 15 miprimer
+# restarting miprimer
+Restart=on-failure
+RestartSec=1s
+TimeoutStartSec=0
+TimeoutStopSec=0
+
+[Install]
+WantedBy=default.target

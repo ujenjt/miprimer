@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>Mi-Primer</title>
+        {% assets "css_all" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" />
+        {% endassets %}
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">MiPrimer</div>
+            <div class="mirna-sequence">
+              <span class="polymer-sequence">{{mirna}}</span>
+            </div>
+            <div class="mirna-primers">
+              <h3 class="mirna-primers__table-name">Forward primers</h3>
+              <div class="mirna-primers__table-wrapper">
+                <table class="mirna-primers__table">
+                  <thead>
+                    <tr>
+                      <th>Sequence</th>
+                      <th>Length, bp</th>
+                      <th>Tm, °C</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for forward in results['forwards'] %}
+                    <tr>
+                      <td><span class="polymer-sequence">{{forward['sequence']}}</span></td>
+                      <td>{{forward['length']}}</td>
+                      <td>{{forward['tm']}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <h3 class="mirna-primers__table-name">Reverse primers</h3>
+              <div class="mirna-primers__table-wrapper">
+                <table class="mirna-primers__table">
+                  <thead>
+                    <tr>
+                      <th>Sequence</th>
+                      <th>Length, bp</th>
+                      <th>Tm, °C</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for reverse in results['reverses'] %}
+                    <tr>
+                      <td><span class="polymer-sequence">{{reverse['sequence']}}</span></td>
+                      <td>{{reverse['length']}}</td>
+                      <td>{{reverse['tm']}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+    </body>
+</html>
