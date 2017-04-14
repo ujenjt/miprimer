@@ -1,3 +1,8 @@
+# Algorithm for design of PCR primers
+
+DNA primers is designed according the rules from this article
+https://bmcbiotechnol.biomedcentral.com/articles/10.1186/1472-6750-11-70
+
 # Usage *nix
 
 About virtual environments
