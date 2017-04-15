@@ -1,0 +1,7 @@
+*
+!templates
+!static
+!*.py
+!*.css
+!*.txt
+!start
