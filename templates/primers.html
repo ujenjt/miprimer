@@ -47,6 +47,7 @@
                       <th>Sequence</th>
                       <th>Length, bp</th>
                       <th>Tm, °C</th>
+                      <th>A–T on 3'</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -55,6 +56,11 @@
                       <td><span class="polymer-sequence">{{reverse['sequence']}}</span></td>
                       <td>{{reverse['length']}}</td>
                       <td>{{reverse['tm']}}</td>
+                      <td>
+                        {% for at_status in reverse['at_statuses'] %}
+                          <span class="{{at_status['classes']}}" hint-label="{{at_status['hint']}}"></span>
+                        {% endfor %}
+                      </td>
                     </tr>
                     {% endfor %}
                   </tbody>

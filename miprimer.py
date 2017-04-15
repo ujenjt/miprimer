@@ -39,17 +39,11 @@ def calculate_at_statuses(dna):
     }
 
 
-def create_primer_entry(sequence):
+def create_primer_entry(sequence, at_statuses):
     d = {}
     d['sequence'] = sequence
     d['length'] = len(sequence)
     d['tm'] = round(calc_melt_temp(sequence), 3)
-
-    return d
-
-def create_forward_primer_entry(sequence, at_statuses):
-    d = create_primer_entry(sequence)
-
     d['at5'] = at_statuses['at5']
     d['at3'] = at_statuses['at3']
     d['at2'] = at_statuses['at2']
@@ -88,7 +82,7 @@ def calculate_primers(mi_rna):
 
         if calc_melt_temp(forward) > 59:
             at_statuses = calculate_at_statuses(mi_rna_dna[:i])
-            forwards.append(create_forward_primer_entry(forward, at_statuses))
+            forwards.append(create_primer_entry(forward, at_statuses))
             print('forvard', i, mi_rna_dna[:i], forward, calc_melt_temp(forward))
 
     reverse = ''
@@ -109,7 +103,8 @@ def calculate_primers(mi_rna):
                 break
 
         if calc_melt_temp(reverse) > 59:
-            reverses.append(create_primer_entry(reverse))
+            at_statuses = calculate_at_statuses(reverse_candidate)
+            reverses.append(create_primer_entry(reverse, at_statuses))
             print('reverse', i, reverse_candidate, reverse, calc_melt_temp(reverse))
 
     return {'reverses': reverses, 'forwards': forwards}

@@ -39,27 +39,31 @@ def generate_A_T_status(checkStatus, type):
     }
 
 
-def build_primers_view(primers):
-    forwards = []
+def map_to_view(primers):
+    results = []
 
-    for forward_primer in primers['forwards']:
+    for primer in primers:
         d = {}
 
-        d['sequence'] = forward_primer['sequence']
-        d['length'] = forward_primer['length']
-        d['tm'] = forward_primer['tm']
+        d['sequence'] = primer['sequence']
+        d['length'] = primer['length']
+        d['tm'] = primer['tm']
 
         at_statuses = [
-            generate_A_T_status(forward_primer['at5'], 'at5'),
-            generate_A_T_status(forward_primer['at3'], 'at3'),
-            generate_A_T_status(forward_primer['at2'], 'at2')
+            generate_A_T_status(primer['at5'], 'at5'),
+            generate_A_T_status(primer['at3'], 'at3'),
+            generate_A_T_status(primer['at2'], 'at2')
         ]
 
         d['at_statuses'] = at_statuses
 
-        forwards.append(d)
+        results.append(d)
 
+    return results
+
+
+def build_primers_view(primers):
     return {
-        'forwards': forwards,
-        'reverses': primers['reverses']
+        'forwards': map_to_view(primers['forwards']),
+        'reverses': map_to_view(primers['reverses'])
     }
