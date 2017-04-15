@@ -3,6 +3,7 @@ from flask_assets import Environment, Bundle
 
 from config import config
 from miprimer import calculate_primers
+from view import build_primers_view
 
 
 app = Flask(__name__)
@@ -11,6 +12,7 @@ assets = Environment(app)
 
 css = Bundle(
     'styles/main.css',
+    'styles/tooltipped.css',
     output='css/main.css'
 )
 assets.register('css_all', css)
@@ -24,7 +26,8 @@ def index():
 @app.route('/primers', methods=['POST'])
 def primers():
     mirna = request.form['mirna']
-    results = calculate_primers(mirna)
+    primers = calculate_primers(mirna)
+    results = build_primers_view(primers)
     return render_template('primers.html', mirna=mirna, results=results)
 
 

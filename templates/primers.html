@@ -20,6 +20,7 @@
                       <th>Sequence</th>
                       <th>Length, bp</th>
                       <th>Tm, °C</th>
+                      <th>A–T on 3'</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -28,6 +29,11 @@
                       <td><span class="polymer-sequence">{{forward['sequence']}}</span></td>
                       <td>{{forward['length']}}</td>
                       <td>{{forward['tm']}}</td>
+                      <td>
+                        {% for at_status in forward['at_statuses'] %}
+                          <span class="{{at_status['classes']}}" hint-label="{{at_status['hint']}}"></span>
+                        {% endfor %}
+                      </td>
                     </tr>
                     {% endfor %}
                   </tbody>

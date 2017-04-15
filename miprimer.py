@@ -26,9 +26,17 @@ def count_of_A_or_T_in_range(dna, range):
 
 
 def last_five_nucliotides_are_ok(dna):
-    return count_of_A_or_T_in_range(dna[-5:], range(2,4)) and \
-        count_of_A_or_T_in_range(dna[-3:], range(1,3)) and \
+    return count_of_A_or_T_in_range(dna[-5:], range(2,4)) or \
+        count_of_A_or_T_in_range(dna[-3:], range(1,3)) or \
         count_of_A_or_T_in_range(dna[-2:], range(1,2))
+
+
+def calculate_at_statuses(dna):
+    return {
+        'at5': count_of_A_or_T_in_range(dna[-5:], range(2,4)),
+        'at3': count_of_A_or_T_in_range(dna[-3:], range(1,3)),
+        'at2': count_of_A_or_T_in_range(dna[-2:], range(1,2))
+    }
 
 
 def create_primer_entry(sequence):
@@ -36,6 +44,15 @@ def create_primer_entry(sequence):
     d['sequence'] = sequence
     d['length'] = len(sequence)
     d['tm'] = round(calc_melt_temp(sequence), 3)
+
+    return d
+
+def create_forward_primer_entry(sequence, at_statuses):
+    d = create_primer_entry(sequence)
+
+    d['at5'] = at_statuses['at5']
+    d['at3'] = at_statuses['at3']
+    d['at2'] = at_statuses['at2']
 
     return d
 
@@ -70,7 +87,8 @@ def calculate_primers(mi_rna):
                 break
 
         if calc_melt_temp(forward) > 59:
-            forwards.append(create_primer_entry(forward))
+            at_statuses = calculate_at_statuses(mi_rna_dna[:i])
+            forwards.append(create_forward_primer_entry(forward, at_statuses))
             print('forvard', i, mi_rna_dna[:i], forward, calc_melt_temp(forward))
 
     reverse = ''

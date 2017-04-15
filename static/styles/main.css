@@ -1,5 +1,5 @@
 .container {
-  width: 700px;
+  width: 800px;
   margin: 0 auto;
   padding-top: 50px;
 }
@@ -108,7 +108,7 @@
 }
 
 .mirna-primers__table th:first-child {
-  min-width: 460px;
+  min-width: 420px;
 }
 
 .mirna-primers__table td {
@@ -133,3 +133,18 @@
   font-family: "Consolas", Monaco, monospace;
   color: rgba(0,0,0,.8);
 }
+
+.at-status {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+
+.at-status_green {
+  background-color: #7BC96F;
+}
+
+.at-status_red {
+  background-color: #EF4A23;
+}
+
